@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ActionModalHost } from "@/components/ui/action-modal-host";
 import { useActionModal } from "@/hooks/use-action-modal";
 
-export function FormPage({ title, description, formFields = [] }) {
+export function FormPage({ title, description, formFields = [], actions = ["New"] }) {
   const { modal, handleAction, closeModal, handleFormSubmit, handleConfirm, showSuccess } = useActionModal({
     formFields,
     pageTitle: title,
@@ -18,7 +18,7 @@ export function FormPage({ title, description, formFields = [] }) {
       <PageHeader
         title={title}
         description={description}
-        actions={["New"]}
+        actions={actions}
         onAction={handleAction}
       />
       <Card className="max-w-2xl">

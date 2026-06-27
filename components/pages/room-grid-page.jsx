@@ -8,14 +8,16 @@ import { useActionModal } from "@/hooks/use-action-modal";
 
 const statusColors = {
   Occupied: "border-blue-300 bg-blue-50",
+  Vacant: "border-green-300 bg-green-50",
   Available: "border-green-300 bg-green-50",
   Dirty: "border-red-300 bg-red-50",
   Clean: "border-emerald-300 bg-emerald-50",
   Reserved: "border-purple-300 bg-purple-50",
   Maintenance: "border-orange-300 bg-orange-50",
+  Blocked: "border-gray-400 bg-gray-100",
 };
 
-export function RoomGridPage({ title, description, data = [] }) {
+export function RoomGridPage({ title, description, data = [], actions = ["Change Status", "Block Room"] }) {
   const floors = [...new Set(data.map((r) => r.floor))].sort();
   const {
     modal,
@@ -33,7 +35,7 @@ export function RoomGridPage({ title, description, data = [] }) {
       <PageHeader
         title={title}
         description={description}
-        actions={["Change Status", "Block Room"]}
+        actions={actions}
         onAction={handleAction}
       />
       <div className="flex flex-wrap gap-3 mb-6">
@@ -70,6 +72,9 @@ export function RoomGridPage({ title, description, data = [] }) {
                 </div>
                 {room.guest !== "—" && (
                   <p className="text-xs text-muted mt-1 truncate">{room.guest}</p>
+                )}
+                {room.hkStatus && room.hkStatus !== "—" && (
+                  <p className="text-[10px] text-muted mt-1">HK: {room.hkStatus}</p>
                 )}
               </button>
             ))}
